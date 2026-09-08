@@ -1,0 +1,600 @@
+.body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    background-color: whitesmoke;
+}
+
+.header{
+    width: 100vw;
+    height: 13vh;
+    /*min-height: 44px; */
+    box-sizing: border-box;
+    padding-bottom: 0.5vh;
+    padding-top: 0.5vh;
+    background-color: black;
+    position: fixed;
+    z-index: 10;
+}
+
+.header1{
+    width: 100vw;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 5vh 0px 4.74vh;
+    background-color: black;
+}
+
+.LogoIMG{
+    width: 15vh;
+    height: 12vh;
+    /*
+    min-height: 44px;
+    min-width: 44px; */
+    cursor: pointer;
+}
+.ContactoIMG{
+    width: 6vh;
+    height: 6vh;
+    /*
+    min-height: 44px;
+    min-width: 44px; */
+    cursor: pointer;
+}
+
+/* Carta de Carrito*/
+.icon-cart{
+    width: 5.4vh; /*40px*/
+    height: 5.4vh; /*40px*/
+    stroke: white;
+    cursor: pointer;
+}
+
+.container-icon{
+    position: relative;
+}
+
+.count-products{
+    position: absolute;
+    top: 55%;
+    right: 0;
+
+    background-color: white;
+    color: black;
+    width: 3.38vh; /*25px*/
+    height: 3.38vh; /*25px*/
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+#contador-productos{
+    font-size: 1.62vh; /*12px*/
+}
+
+/**/
+.container-cart-products{
+    position: absolute;
+    top: 6.76vh; /*50px*/
+    right: 0;
+
+    background-color: #fff;
+    width: 54.1vh; /*400px*/
+    max-height: 54.1vh; /*400px*/
+    overflow: auto;
+    z-index: 1;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.20);
+    border-radius: 10px; 
+}
+
+.cart-product{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 4vh 0px 4vh; /*0px 30px 0px 30px*/
+    border-bottom: 1px solid rgba(0, 0, 0, 0.20);
+}
+
+.info-cart-product{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 0.8;
+}
+
+.titulo-producto-carrito{
+    font-size: 2.7vh; /*20px*/
+    text-align: center;
+}
+
+.precio-producto-carrito{
+    font-weight: 700;
+    font-size: 2.7vh; /*20px*/
+    margin-left: 1.35vh; /*10px*/
+}
+
+.cantidad-producto-carrito{
+    font-weight: 400;
+    font-size: 2.7vh; /*20px*/
+}
+
+.icon-close{
+    width: 3.38vh; /*25px*/
+    height: 3.38vh; /*25px*/
+    cursor: pointer;
+}
+
+.icon-close:hover{
+    stroke: red;
+}
+
+.cart-total{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.7vh 0; /*20px 0*/
+    gap: 2.7vh; /*20px*/
+}
+
+.cart-total h3{
+    font-size: 2.7vh; /*20px*/
+    font-weight: 700;
+}
+
+
+.total-pagar{
+    font-size: 2.7vh; /*20px*/
+    font-weight: 900;
+}
+
+.hidden-cart{
+    display: none;
+}
+
+
+.btnPagoCar{
+    background-color: red;
+    font-size: 2.7vh; /*20px*/
+    color: white;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btnPagoCar:hover{
+    background-color: blueviolet;
+}
+
+/* Main */
+#recycling-image {
+    width: 100vw;
+    height: 50vh;
+    padding-top: 13vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation-name: CambiarIm;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+
+}
+@keyframes CambiarIm {
+    0%{
+        background-image: url(http://cauchosmc.com/wp-content/uploads/2019/04/MCMesa-de-trabajo-1-8.png);
+    }
+    100%{
+        background-image: url(http://cauchosmc.com/wp-content/uploads/2019/04/MCMesa-de-trabajo-7-8.png);
+    }
+}
+
+.preset{
+    animation-name: Preset;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-direction:normal;
+    display: flex;
+    flex-direction: column;
+    height: 20vh;
+}
+@keyframes Preset {
+    0%{
+        transform: translateY(55%);
+    }
+}
+
+.lookk{
+    display: flex; 
+    justify-content: center; 
+}
+
+#searchInput{
+    width: 40vw;
+    font-size: 2.5vh;
+}
+
+.btnBuscar{
+    background-color: red;
+    font-size: 3.38vh;
+    color: white;
+    font-weight: bold;
+    margin-left: 8px;
+    border: 0px;
+    border-radius: 8px; 
+    cursor: pointer;
+}
+.btnBuscar:hover{
+    background-color: blueviolet;
+}
+
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100vw;
+    box-sizing: border-box;
+    padding: 4vh 2.278vw 2.7vh 2.278vw;
+    flex: 1;
+}
+
+.box {
+    width: 20vw;
+    box-sizing: border-box;
+    min-width: 150px;
+    background-color: black;
+    text-align: center;
+    color: white;
+    border-radius: 8px;
+    z-index: 2;
+    margin-bottom: 2.71vh;
+    padding: 1.3vw;
+
+}
+
+.tlProd{
+    color:#721a7a; 
+    font-size: 1.63vw;
+    padding-bottom: 0.65vw; 
+    font-weight: bold;
+}
+
+.box img{
+    width: 9.1vw;
+    height: 7.5vw;
+}
+
+.PrecProd{
+    font-size: 1.17vw;
+    font-weight: bold;
+}
+
+input[type="number"]{
+    width: 3.25vw; 
+    margin-left: 0.65vw;
+    text-align: center;
+    font-size: 1.17vw;
+}
+
+.descrip{
+    font-size: 1.1vw; 
+    text-align: center; 
+    padding-top: 0.65vw; 
+    padding-bottom:0.65vw;
+    text-wrap: balance;
+}
+
+.btnAñadir{
+    background-color: red;
+    font-size: 1.56vw; 
+    color: white;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 8px; 
+    cursor: pointer;
+}
+
+
+.btnAñadir:hover{
+    background-color: blueviolet;
+}
+
+.box:hover{
+    box-shadow: 10px 5px 5px blue; /**/
+}
+.box:hover img{
+    filter: grayscale(100%);
+}
+
+
+#footer {
+    text-align: center;
+    width: 100vw;
+    box-sizing: border-box;
+    padding: 2vh;
+    background-color: black;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /*max-height
+    padding: 2vh 30px 2vh 20px;
+    */
+}
+
+.instagram{
+    width: 25px;
+    height: 25px;
+}
+
+/*Formulario Pago*/
+.modal-container{
+    width: 60vw;
+    max-height: 87vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    overflow: auto;
+    z-index: 15;
+    left: 50%;
+    transform: translate(-50%, -0%);
+    top: 20vh; /*50%    translate(-50%, -0%)*/
+    scrollbar-color: none;
+    border-radius: 8px;
+    background-color: rgb(133, 133, 133);
+    box-shadow: 0 0 10px rgba(110, 110, 110, 1);
+}
+
+.modal-container::-webkit-scrollbar{
+    display: none;
+}
+
+.modal-header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(95, 95, 95);
+    box-shadow: 0 0 10px rgba(95, 95, 95, 1);
+    color: black;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2.84vh 1.37vw 2.84vh 1.37vw;
+}
+
+.modal-header-title{
+    justify-self: start;
+    margin: 0px;
+    font-size: 2.28vw;
+}
+
+.modal-header-button{
+    cursor: pointer;
+    font-size: 1.82vw;
+}
+
+.modal-contentt{
+    padding: 2.7vh 0px 2.7vh 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.formIP{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0.68vh;
+    width: 80%;
+    max-width: 100%;
+}
+
+.formIP label{
+    font-size: 1.17vw; 
+    font-weight: bold;
+    padding-right: 0.78vw; 
+    text-align: center;
+}
+
+.formIP input{
+    width: 23.8vw;
+    font-size: 1.1vw;
+}
+
+.mitInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.676vh;
+}
+
+.btnOKPay{
+    background-color: red;
+    font-size: 1.25vw; 
+    color: white;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 8px; 
+    cursor: pointer;
+}
+.btnOKPay:hover{
+    background-color: blueviolet;
+}
+
+/*Formulario Contacto*/
+
+.contacto-container{
+    width: 60vw;
+    max-height: 87vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    overflow: auto;
+    z-index: 15;
+    left: 50%;
+    transform: translate(-50%, -0%);
+    top: 20vh; /*50%    translate(-50%, -0%)*/
+    scrollbar-color: none;
+    border-radius: 8px; 
+    background-color: rgb(133, 133, 133);
+    box-shadow: 0 0 10px rgba(110, 110, 110, 1);
+}
+.contacto-container::-webkit-scrollbar{
+    display: none;
+}
+
+.contacto-header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(95, 95, 95);
+    box-shadow: 0 0 10px rgba(95, 95, 95, 1);
+    color: black;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2.84vh 1.37vw 2.84vh 1.37vw;
+}
+
+.contacto-header-title{
+    justify-self: start;
+    margin: 0px;
+    font-size: 2.28vw;
+}
+
+.contacto-header-button{
+    cursor: pointer;
+    font-size: 1.82vw;
+}
+
+.contacto-contentt{
+    padding: 2.7vh 0px 2.7vh 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formIPContac{
+    display: flex;
+    justify-content: end;
+    align-items: center; 
+    box-sizing: border-box;
+    padding: 0.68vh;
+    width: 80%;
+    max-width: 100%;
+}
+
+.formIPContac label{
+    font-size: 1.17vw; 
+    font-weight: bold;
+    padding-right: 0.78vw; 
+}
+
+.formIPContac input{
+    width: 23.8vw;
+    font-size: 1.1vw;
+}
+
+.formIPContac textarea{
+    width: 23.8vw;
+    font-size: 1.1vw;
+}
+
+.mitInfoContac{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.676vh;
+}
+
+.btnOKContac{
+    background-color: red;
+    font-size: 1.25vw; 
+    color: white;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 8px; 
+    cursor: pointer;
+}
+.btnOKContac:hover{
+    background-color: blueviolet;
+}
+
+/*Cargando*/
+#loader {
+    border: 10px solid rgba(255, 255, 255, 0.3);
+    border-top: 10px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/*Tiempo Pedido*/
+.time-pedido{
+    width: 20vw;
+    background-color: darksalmon;
+    box-shadow: 0 0 10px rgb(236, 123, 85);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.time-pedido::-webkit-scrollbar{
+    display: none;
+}
+.time-pedido-header{
+    display: flex;
+    flex-flow: row-reverse;
+    align-items: center;
+    background-color: rgb(239, 144, 113);
+    box-shadow: 0 0 10px rgb(235, 133, 99);
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 1.2vh;
+}
+.time-pedido-header-button{
+    cursor: pointer;
+    font-size: 1.8vw;
+}
+.time-pedido-messgue{
+    font-size: 15px;
+    text-wrap: balance;
+    text-align: center;
+    padding: 1.8vh;
+    margin: 0;
+}
+.time-pedido-btn{
+    background-color: rgb(222, 79, 31);
+    font-size: 1.25vw; 
+    color: white;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 8px; 
+    cursor: pointer;
+}
+.time-pedido-btn:hover{
+    background-color: blueviolet;
+}
+
+

@@ -1,0 +1,56 @@
+version: "3.8"
+#docker compose up -d --build servicio1 servicio2
+services:
+  frontend:
+    build: ./cauchosmc
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build: ./ShopCauchosMC
+    env_file:
+      - ./ShopCauchosMC/.env
+    volumes:
+      - ./ShopCauchosMC/.:/app:cached
+      - /app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - mongo
+      - rabbitmq
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"      # Para conexión desde apps
+      - "15672:15672"    # Para acceder al panel web
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+  rabbitmq-data:
+
+networks:
+  app-network:
+    driver: bridge

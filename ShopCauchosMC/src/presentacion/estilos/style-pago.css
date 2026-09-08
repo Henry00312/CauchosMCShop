@@ -1,0 +1,179 @@
+.body {
+    font-family: Arial, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.header{
+    width: 100vw;
+    height: 13vh;
+    /*min-height: 44px; */
+    box-sizing: border-box;
+    padding: 0.5vh 4.74vh 0.5vh 4.74vh;
+    background-color: black;
+    position: fixed;
+    z-index: 10;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row-reverse;
+}
+
+.header1{
+    width: calc(50% + (15vh/2));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    
+    background-color: black;
+}
+
+.LogoIMG{
+    width: 15vh;
+    height: 12vh;
+    /*
+    min-height: 44px;
+    min-width: 44px; */
+    cursor: pointer;
+}
+.ContactoIMG{
+    width: 6vh;
+    height: 6vh;
+    /*
+    min-height: 44px;
+    min-width: 44px; */
+    cursor: pointer;
+}
+
+.tiempo{
+    display: none;
+    padding-top: 13vh;
+}
+
+.centrar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 87vh;
+}
+
+.status{
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.titulo-success{
+    font-size: 3.26vw;
+    text-align: center;
+    color: #4CAF50;
+    box-sizing: border-box;
+    padding: 2.28vw;
+    margin: 0;
+    text-wrap: balance;
+}
+
+
+.mensaje-success{
+    font-size: 1.63vw;
+    color: #333333;
+    padding: 1.62vw;
+    margin: 0;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.titulo-pending{
+    font-size: 3.26vw;
+    text-align: center;
+    color: rgb(187, 187, 4);
+    box-sizing: border-box;
+    padding: 2.28vw;
+    margin: 0;
+    text-wrap: balance;
+}
+
+
+.mensaje-pending{
+    font-size: 1.63vw;
+    color: #333333;
+    padding: 1.62vw;
+    margin: 0;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.titulo-failure{
+    font-size: 3.26vw;
+    text-align: center;
+    color: rgb(205, 2, 2);
+    box-sizing: border-box;
+    padding: 2.28vw;
+    margin: 0;
+    text-wrap: balance;
+}
+
+.titulo-contacto{
+    font-size: 3.26vw;
+    text-align: center;
+    color: rgb(3, 109, 158);
+    box-sizing: border-box;
+    padding: 2.28vw;
+    margin: 0;
+    text-wrap: balance;
+}
+
+.mensaje-Estandar{
+    font-size: 1.63vw;
+    color: #333333;
+    padding: 1.62vw;
+    margin: 0;
+    text-align: center;
+    text-wrap: balance;
+}
+
+@media screen and (max-width: 750px){
+
+    .titulo-success{
+        font-size: 30px;/*50px*/
+        padding: 13px; /*35px*/
+    }
+    .mensaje-success{
+        font-size: 15px; /*25px*/
+        padding: 9px;
+        
+    }
+    .titulo-pending{
+        font-size: 30px;
+        padding: 13px;
+    }
+    .mensaje-pending{
+        font-size: 15px; 
+        padding: 9px;
+    }
+    
+    .titulo-failure{
+        font-size: 30px;
+        padding: 13px;
+    }
+    
+    .titulo-contacto{
+        font-size: 30px;
+        padding: 13px;
+    }
+    
+    .mensaje-Estandar{
+        font-size: 15px; 
+        padding: 9px;
+    }
+}

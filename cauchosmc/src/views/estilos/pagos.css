@@ -1,0 +1,131 @@
+.body {
+    /*font-family: Arial, sans-serif;*/
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.header{
+    width: 100vw;
+    height: 13vh;
+    /*min-height: 44px; */
+    box-sizing: border-box;
+    padding: 0.5vh 4.74vh;
+    background-color: black;
+    position: fixed;
+    z-index: 10;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row-reverse;
+}
+
+.header1{
+    width: calc(50% + (15vh/2));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    
+    background-color: black;
+}
+
+.LogoIMG{
+    width: 15vh;
+    height: 12vh;
+    /*
+    min-height: 44px;
+    min-width: 44px; */
+    cursor: pointer;
+}
+.ContactoIMG{
+    width: 6vh;
+    height: 6vh;
+    /*
+    min-height: 44px;
+    min-width: 44px; */
+    cursor: pointer;
+}
+
+.centrar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 87vh;
+}
+
+.status{
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.titulo{
+    font-size: 3.26vw;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 2.28vw;
+    margin: 0;
+    text-wrap: balance;
+}
+.mensaje{
+    font-size: 1.63vw;
+    color: #333333;
+    padding: 1.62vw;
+    margin: 0;
+    text-align: center;
+    text-wrap: balance;
+}
+.success{
+    color: #4CAF50;
+}
+.pending{
+    color: rgb(187, 187, 4);
+}
+.failure{
+    color: rgb(205, 2, 2);
+}
+.contact{
+    color: rgb(3, 109, 158);
+}
+
+/*Cargando*/
+#loader {
+    border: 10px solid rgba(255, 255, 255, 0.3);
+    border-top: 10px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 750px){
+    .titulo{
+        font-size: 30px;/*50px*/
+        padding: 13px; /*35px*/
+    }
+    .mensaje{
+        font-size: 15px; /*25px*/
+        padding: 9px;
+    }
+}

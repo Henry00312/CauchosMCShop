@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CauchosMC</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos/style.css">
+    <link rel="stylesheet" href="estilos/style-movil.css" media="screen and (max-width: 750px)">
+</head>
+
+<body class="body">
+
+    <header class="header">
+        <div class="header1">
+
+            <div id="contacto"><img src="assets//CONTACTOS.png" class="ContactoIMG"></div>
+
+            <a href="/" style="width: 15vh; height: 12vh;"><img src="assets/LOGO.png" class="LogoIMG" ></a>
+
+
+            <div class="container-icon">
+                <div class="container-cart-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-cart">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                    <div class="count-products">
+                        <span id="contador-productos">0</span>
+                    </div>
+                </div>
+
+                <div class="container-cart-products hidden-cart">
+                    <div class="row-product">
+                        <div class="cart-product">
+
+                        </div>
+
+                    </div>
+
+                    <div class="cart-total">
+                        <h3>Total:</h3>
+                        <span class="total-pagar">$0</span>
+                        <button class="btnPagoCar">Pagar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+
+    <div><img id="recycling-image"></div>
+
+
+    <div class="preset">
+
+        <div style="text-align: center;color: black;font-size: 5vh; padding: 4.87vh 0px 4.87vh 0px;">
+            <b>¡Tienda CauchosMC!</b>
+        </div>
+
+        <div class="lookk">
+            <input list="browsers" name="browser" id="searchInput">
+            <datalist id="browsers">
+                <option value="Ordeños">
+            </datalist>
+            <button class="btnBuscar">Buscar</button>
+        </div>
+
+    </div>
+
+    <div class="modal-container"></div>
+    <div class="contacto-container"></div>
+    <div class="time-pedido"></div>
+    <div id="loader" style="display: none;"></div>
+
+    <section style="display: flex; flex-direction: column; height: 17vh;">
+
+        <div class="container"></div>
+
+        <div id="footer">
+
+            <div style="display: flex; align-items: end;">
+                <img
+                    style="background-image: url(http://cauchosmc.com/wp-content/uploads/2019/06/Logo-Negro.jpg); width: 100px; height: 100px; background-size: cover;">
+    
+                <div
+                    style="color: white; display: flex; flex-direction: column; justify-content: center;padding: 0px 8px 0px 8px;">
+                    <p style="padding: 2px;margin: 0;">nit</p>
+                    <p style="padding: 2px;margin: 0;">direccion</p>
+                </div>
+                <div
+                    style="color: white; display: flex; flex-direction: column; justify-content: center;padding: 0px 8px 0px 8px;">
+                    <p style="padding: 2px;margin: 0;">correo</p>
+                    <p style="padding: 2px;margin: 0;">numero</p>
+                </div>
+    
+                <a style="color: white; padding-left: 30px; ">Politica de Tratamiento de Datos Personales</a>
+    
+            </div>
+    
+    
+            <a href=""><img class="instagram" src="assets/instagram.png"></a>
+
+
+        </div>
+
+    </section>
+
+
+    <script src="scripts/productos.js"></script>
+    <script src="scripts/scripts.js"></script>
+</body>
+
+</html>

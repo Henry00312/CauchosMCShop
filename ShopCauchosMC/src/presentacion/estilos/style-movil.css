@@ -1,0 +1,173 @@
+/*Carta de Carrito*/
+.container-cart-products{
+    width: 335px; /*400px*/
+    max-height: 335px; /*400px*/
+}
+
+.cart-product{
+    padding: 0px 3vh 0px 3vh; /*0px 30px 0px 30px*/
+}
+
+.titulo-producto-carrito{
+    font-size: 2.3vh; /*20px*/
+}
+
+.precio-producto-carrito{
+    font-size: 2.3vh; /*20px*/
+    margin-left: 1vh; /*10px*/
+}
+
+.cantidad-producto-carrito{
+    font-size: 2.3vh; /*20px*/
+}
+
+.icon-close{
+    width: 3vh; /*25px*/
+    height: 3vh; /*25px*/
+}
+
+.cart-total{
+    padding: 2.3vh 0; /*20px 0*/
+    gap: 2.3vh; /*20px*/
+}
+
+.cart-total h3{
+    font-size: 2.3vh; /*20px*/
+}
+
+
+.total-pagar{
+    font-size: 2.3vh; /*20px*/
+}
+
+.btnPagoCar{
+    font-size: 2.3vh; /*20px*/
+}
+
+/*Productos*/
+.box {
+    padding: 10.75px;
+}
+
+.tlProd{
+    font-size: 15.22px;
+    padding-bottom: 6.87px; 
+}
+
+.box img{
+    width: 71.25px;
+    height: 59.25px;
+}
+
+.PrecProd{
+    font-size: 11.77px;
+}
+
+input[type="number"]{
+    width: 27.37px; 
+    margin-left: 6.87px;
+    font-size: 11.77px;
+}
+
+.descrip{
+    font-size: 11.25px; 
+    padding-top: 6.87px; 
+    padding-bottom:6.87px;
+}
+
+.btnAñadir{
+    font-size: 14.7px;
+} 
+
+/*Formulario Pago*/
+.modal-container{
+    width: 75vw;
+}
+
+.modal-header{
+    padding: 2.3vh 1.37vw 2.3vh 1.37vw;
+}
+
+.modal-header-title{
+    font-size: 23px; 
+}
+
+.modal-header-button{
+    font-size: 15px;
+}
+
+.modal-contentt{
+    padding: 2vh 0px 2vh 0px;
+}
+
+.formIP{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.formIP label{
+    font-size: 13px; 
+    text-align: center;
+    padding-bottom: 0.3vh;
+}
+
+.formIP input{
+    width: 150px;
+    max-width:100%;
+    font-size: 10px;
+}
+
+.btnOKPay{
+    font-size: 15px; 
+}
+
+/*Formulario Contacto*/
+.contacto-container{
+    width: 70vw;
+}
+.contacto-header{
+    padding: 2.3vh 1.37vw 2.3vh 1.37vw;
+} 
+
+.contacto-header-title{
+    font-size: 25px; 
+}
+
+.contacto-header-button{
+    font-size: 16px;
+}
+
+.contacto-contentt{
+    padding: 2vh 0px 2vh 0px;
+}
+
+.formIPContac{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.formIPContac label{
+    font-size: 13px; 
+    text-align: center;
+    padding-bottom: 0.3vh;
+}
+
+.formIPContac input{
+    width: 150px;
+    max-width:100%;
+    font-size: 10px;
+}
+
+.formIPContac textarea{
+    width: 150px;
+    font-size: 10px;
+}
+
+.btnOKContac{
+    font-size: 15px; 
+}
+
+
+
