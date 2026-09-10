@@ -1,20 +1,10 @@
 import { MercadoPagoConfig, Payment} from "mercadopago"
 import { MERCADOPAGO_ACCESS_TOKEN } from "../config.js"
-import {AsignarIDSolicitudes} from '../services/IDSolicitudes.js'
 import { publisher } from '../colas/publicer-Colas.js'
-import { UltimaDatePedid, pickDateProg } from '../services/respuestas-solicitudes.js'
 import { crearOrder } from '../services/create-order.js'
+import { FechaUltPedido, pickFecha } from '../services/pedidos-gestion.js'
 import { reclamarEvento, marcarProcesado, marcarFallido } from '../database/payments/payment-events.js'
 import logger from '../lib/logger.js'
-
-let timeOutIdDates;
-let timeOutIdPickDates;
-function stopTimeOutDates() {
-    clearInterval(timeOutIdDates);
-}
-function stopTimeOutPickDates() {
-    clearInterval(timeOutIdPickDates);
-}
 
 // Crear la preferencia es una operacion peticion/respuesta: el usuario espera
 // la URL de pago. Pasaba por RabbitMQ y luego se sondeaba un array en memoria
@@ -115,41 +105,42 @@ export const receiveWebhook = async (req, res) => {
     }
 }
 
+// Consulta de fechas: ambas leen de la coleccion Pedidos. Pasaban por RabbitMQ
+// para que el consumidor, en este mismo proceso, llamase a la misma funcion y
+// devolviese el resultado por un array en memoria sondeado cada segundo. La
+// cola no aportaba nada y anadia como minimo un segundo de latencia.
+//
+// El valor devuelto es identico: el consumidor de "UltimaFechaPedido" publicaba
+// unicamente FechaFinProd del resultado de FechaUltPedido.
 export const Tiempo_Pedido = async (req, res) => {
-     // ID SOLICITUD
-     const ID_SOLICITUD = AsignarIDSolicitudes();
-     // AGREGAR LA ID DE LA SOLICITUD
-     const message = {contenidoRX: req.body, id_solicitud: ID_SOLICITUD};
-     //ENCOLAR
-     await publisher("UltimaFechaPedido", message);
-     //ESPERANDO RESPUESTA
-     var result = null;
-     timeOutIdDates = setInterval(() => {
-         result = UltimaDatePedid(ID_SOLICITUD);
-         if (result !== null) {
-            res.send(result);
-            stopTimeOutDates();
-         }
-     }, 1000);
+    try {
+        const { FechaFinProd } = await FechaUltPedido(req.body);
 
+        res.send(FechaFinProd);
+    } catch (error) {
+        logger.error('Fallo al calcular la fecha de entrega', error);
+
+        if (!res.headersSent) {
+            res.status(500).json({ error: 'No se pudo calcular la fecha de entrega' });
+        }
+    }
 }
 
+// El consumidor de "FechaFin" publicaba directamente el retorno de pickFecha,
+// asi que la respuesta es la misma, incluido el cuerpo vacio cuando el pago no
+// existe (pickFecha devuelve undefined en ese caso).
 export const Tiempo_Pick = async (req, res) => {
-    // ID SOLICITUD
-     const ID_SOLICITUD = AsignarIDSolicitudes();
-     // AGREGAR LA ID DE LA SOLICITUD
-     const message = {contenidoRX: req.query, id_solicitud: ID_SOLICITUD};
-     //ENCOLAR
-     await publisher("FechaFin", message);
-     //ESPERANDO RESPUESTA
-     var result = null;
-     timeOutIdPickDates = setInterval(() => {
-         result = pickDateProg(ID_SOLICITUD);
-         if (result !== null) {
-            res.send(result);
-            stopTimeOutPickDates();
-         }
-     }, 1000);
+    try {
+        const fechaProgramada = await pickFecha(req.query);
+
+        res.send(fechaProgramada);
+    } catch (error) {
+        logger.error('Fallo al consultar la fecha programada', error);
+
+        if (!res.headersSent) {
+            res.status(500).json({ error: 'No se pudo consultar la fecha programada' });
+        }
+    }
 }
 
 // Obtén la fecha en formato Local y luego formateada
