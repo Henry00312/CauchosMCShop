@@ -1,0 +1,16 @@
+# Finales de linea.
+#
+# En Windows, core.autocrlf=true convierte a CRLF al hacer checkout. Para los
+# scripts de shell eso es un fallo real: se copian con CRLF a la imagen Docker
+# y el interprete del contenedor falla con
+#   /usr/bin/env: 'bash\r': No such file or directory
+# Estos archivos deben conservar LF en cualquier plataforma.
+
+*.sh text eol=lf
+
+# Scripts sin extension que tambien ejecuta el contenedor.
+wait-for-it text eol=lf
+
+# El resto de archivos mantiene el comportamiento actual de forma deliberada:
+# no se declara "* text=auto" para evitar una renormalizacion masiva del
+# repositorio que enmascararia cambios reales en las revisiones.

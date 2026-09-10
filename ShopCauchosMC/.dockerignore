@@ -1,0 +1,42 @@
+# Contexto de build del backend.
+#
+# Sin este archivo, "COPY . ." arrastra node_modules del host: infla el
+# contexto y falla al transferir los enlaces simbolicos de node_modules/.bin
+# ("invalid file request node_modules/.bin/bcrypt"). Ademas metia el .env real
+# dentro de la imagen, que no lo necesita porque compose lo inyecta con
+# env_file en tiempo de ejecucion.
+
+# Dependencias: se instalan dentro de la imagen con yarn install.
+node_modules
+**/node_modules
+
+# Secretos. .env.example si se conserva como referencia.
+.env
+.env.*
+!.env.example
+
+# Metadatos de control de versiones.
+.git
+.gitignore
+.gitattributes
+
+# Logs y volcados de diagnostico.
+*.log
+logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Artefactos de pruebas y cobertura.
+coverage
+.nyc_output
+
+# Configuracion de editores y del sistema operativo.
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# El propio contexto de Docker no necesita copiarse dentro de la imagen.
+Dockerfile
+.dockerignore
