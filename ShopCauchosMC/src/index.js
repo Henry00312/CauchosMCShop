@@ -1,10 +1,13 @@
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
+import helmet from 'helmet'
 import paymentRoutes from './routes/payment.routes.js'
 import {PORT} from './config.js'
 import './database/database.js'
 import RabbitMQ from './colas/conexionRabbit.js'
+import logger from './lib/logger.js'
+import { errorHandler, notFoundHandler } from './middlewares/errorHandler.js'
 
 
 var corsOptions = {//origin: '*',
@@ -13,15 +16,26 @@ var corsOptions = {//origin: '*',
 }
 
 const app = express();
+// Cabeceras de seguridad. crossOriginResourcePolicy se relaja a cross-origin
+// porque el frontend se sirve desde otro origen en desarrollo; el valor por
+// defecto (same-origin) romperia ese consumo.
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' }
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb'}));
 app.use(cors(corsOptions));
-app.use(morgan('dev'));
+app.use(morgan('dev', { stream: { write: mensaje => logger.info(mensaje.trim()) } }));
 app.use(paymentRoutes);
 //app.use(express.static('public'));//app.use(express.static(path.resolve('src/presentacion')));
+
+// Deben ir despues de las rutas: primero el 404, luego el manejador de errores.
+app.use(notFoundHandler);
+app.use(errorHandler);
+
 app.listen(PORT);
 
-console.log('Server on port', PORT)
+logger.info('Servidor iniciado', { puerto: PORT });
 
 RabbitMQ.connect();
 //docker-compose logs -f backend
