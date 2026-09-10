@@ -25,6 +25,7 @@
   "resolutions": {
     "ajv": "6.12.6",
     "ajv-keywords": "3.5.2",
+    "**/babel-loader/schema-utils": "2.7.1",
     "schema-utils": "3.3.0",
     "mini-css-extract-plugin": "2.7.6"
   },
