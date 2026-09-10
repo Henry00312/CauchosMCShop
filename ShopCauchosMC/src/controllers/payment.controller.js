@@ -3,6 +3,8 @@ import { MERCADOPAGO_ACCESS_TOKEN } from "../config.js"
 import {AsignarIDSolicitudes} from '../services/IDSolicitudes.js'
 import { publisher } from '../colas/publicer-Colas.js'
 import { Order, UltimaDatePedid, pickDateProg } from '../services/respuestas-solicitudes.js'
+import { reclamarEvento, marcarProcesado, marcarFallido } from '../database/payments/payment-events.js'
+import logger from '../lib/logger.js'
 
 let timeOutIdOrders;
 let timeOutIdDates;
@@ -48,21 +50,53 @@ export const receiveWebhook = async (req, res) => {
 
     try {
         if (payment.type === "payment") {
-            
+
             const client = new MercadoPagoConfig({ accessToken: MERCADOPAGO_ACCESS_TOKEN });
             const capPay = new Payment(client);
             const data = await capPay.get({id: payment['data.id'] });
-            
-            //const data = await mercadopago.payment.findById(payment['data.id']);
-            // Store in database
-            if (data.status === 'approved') {
-                await publisher("RegistrarPago", data);   
+
+            // Mercado Pago reintenta hasta recibir un 2xx y notifica cada
+            // cambio de estado del mismo pago. Se toma posesion exclusiva del
+            // par (pago, estado) antes de encolar nada: si otra peticion ya lo
+            // reclamo, esta se descarta sin reprocesar.
+            const reclamo = await reclamarEvento({
+                mpPaymentId: data.id,
+                mpStatus: data.status
+            });
+
+            if (!reclamo.reclamado) {
+                logger.info('Webhook duplicado descartado', {
+                    mpPaymentId: data.id,
+                    mpStatus: data.status,
+                    estadoActual: reclamo.estadoActual
+                });
+
+                // 200 tambien para el duplicado: un error haria que Mercado Pago
+                // siguiera reintentando una notificacion ya atendida.
+                return res.sendStatus(200);
             }
-            else if (data.status === 'in_process') {
-                await publisher("RegistrarPending", data);
-            }
-            else if(data.status === 'cancelled'){
-                await publisher("CancelarPending", data.id);
+
+            const claveEvento = reclamo.evento.eventKey;
+
+            try {
+                //const data = await mercadopago.payment.findById(payment['data.id']);
+                // Store in database
+                if (data.status === 'approved') {
+                    await publisher("RegistrarPago", data);
+                }
+                else if (data.status === 'in_process') {
+                    await publisher("RegistrarPending", data);
+                }
+                else if(data.status === 'cancelled'){
+                    await publisher("CancelarPending", data.id);
+                }
+
+                await marcarProcesado(claveEvento, `encolado:${data.status}`);
+            } catch (error) {
+                // El evento queda como fallido, no como procesado, para que un
+                // reintento posterior de Mercado Pago pueda volver a tomarlo.
+                await marcarFallido(claveEvento, error);
+                throw error;
             }
         }
         res.sendStatus(200);
