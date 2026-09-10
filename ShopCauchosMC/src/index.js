@@ -16,6 +16,11 @@ var corsOptions = {//origin: '*',
 }
 
 const app = express();
+// Un unico proxy por delante (nginx). Con este valor req.ip pasa a ser la
+// ultima entrada de X-Forwarded-For, es decir la que anexa nginx con la IP real
+// del par, y no la que pudiera enviar el cliente. Sin esto, el rate limit del
+// login agrupa a todos los clientes en un solo contador.
+app.set('trust proxy', 1);
 // Cabeceras de seguridad. crossOriginResourcePolicy se relaja a cross-origin
 // porque el frontend se sirve desde otro origen en desarrollo; el valor por
 // defecto (same-origin) romperia ese consumo.
