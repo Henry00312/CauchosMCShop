@@ -62,6 +62,18 @@ if (!MERCADOPAGO_ACCESS_TOKEN.startsWith(MP_PREFIJO_ESPERADO)) {
 
 console.log(`[config] Mercado Pago en modo "${MP_MODE}" (credencial: ${MP_VARIABLE_ESPERADA})`);
 
+// Clave secreta con la que Mercado Pago firma los webhooks. Se obtiene del
+// panel de la aplicacion, en la configuracion de notificaciones.
+export const MERCADOPAGO_WEBHOOK_SECRET = (process.env.MERCADOPAGO_WEBHOOK_SECRET || '').trim();
+
+if (!MERCADOPAGO_WEBHOOK_SECRET) {
+    console.warn(
+        '[config] MERCADOPAGO_WEBHOOK_SECRET no configurado: la firma de los ' +
+        'webhooks NO se validara. Cualquiera que conozca la URL podria enviar ' +
+        'notificaciones falsas.'
+    );
+}
+
 export const SECRET_KEY = process.env.TOKEN_KEY;
 
 export const OwAdm = process.env.OwA;

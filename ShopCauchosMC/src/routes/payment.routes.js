@@ -7,6 +7,7 @@ from '../controllers/payment.controller.js'
 import {get_Costos, post_Costo, update_Costo, delete_Costo} from '../controllers/costos.controller.js'
 import { contactMessage } from '../controllers/contact.controller.js'
 import { loginRateLimiter } from '../middlewares/rateLimit.js'
+import { verificarFirmaMercadoPago } from '../middlewares/mercadoPagoSignature.js'
 
 //import path from 'path'
 
@@ -41,7 +42,7 @@ router.post('/api/costosDX', verifyToken, post_Costo);
 router.delete('/api/costosDX', verifyToken, delete_Costo);
 
 
-router.post('/api/webhook', receiveWebhook);
+router.post('/api/webhook', verificarFirmaMercadoPago, receiveWebhook);
 
 router.post('/api/contacto', contactMessage);
 
