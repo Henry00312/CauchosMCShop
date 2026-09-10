@@ -9,7 +9,9 @@ export function Order(id_solicitud) {
         if (RabbitMQ.getOrders()[i].id_solicitud === id_solicitud) {
             band = true;
             res = RabbitMQ.getOrders()[i].contenido;
-            RabbitMQ.getOrders().splice(i);
+            // splice(i) eliminaba desde i hasta el final del array, descartando
+            // las respuestas pendientes de otras solicitudes concurrentes.
+            RabbitMQ.getOrders().splice(i, 1);
             break;
         }
     }
@@ -26,7 +28,7 @@ export function UltimaDatePedid(id_solicitud) {
         if (RabbitMQ.getDate()[i].id_solicitud === id_solicitud) {
             band = true;
             res = RabbitMQ.getDate()[i].contenido;
-            RabbitMQ.getDate().splice(i);
+            RabbitMQ.getDate().splice(i, 1);
             break;
         }
     }
@@ -41,7 +43,7 @@ export function pickDateProg(id_solicitud) {
         if (RabbitMQ.getPick()[i].id_solicitud === id_solicitud) {
             band = true;
             res = RabbitMQ.getPick()[i].contenido;
-            RabbitMQ.getPick().splice(i);
+            RabbitMQ.getPick().splice(i, 1);
             break;
         }
     }

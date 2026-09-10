@@ -68,8 +68,10 @@ export const receiveWebhook = async (req, res) => {
         res.sendStatus(200);
     } catch (error) {
         console.log(error);
-        return res.sendStatus(500).json({ error: error.message });
-         
+        // sendStatus() ya envia la respuesta; encadenar .json() lanzaba
+        // ERR_HTTP_HEADERS_SENT y convertia cualquier fallo del webhook en una
+        // excepcion no capturada. status() solo fija el codigo y deja enviar.
+        return res.status(500).json({ error: error.message });
     }
 }
 
