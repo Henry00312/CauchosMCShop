@@ -1,0 +1,53 @@
+# Desarrollo local. Sustituye el uso directo del compose legacy una vez validado.
+services:
+  frontend:
+    build: ./cauchosmc
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build: ./ShopCauchosMC
+    env_file:
+      - ./ShopCauchosMC/.env
+    volumes:
+      - ./ShopCauchosMC/.:/app:cached
+      - /app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - mongo
+      - rabbitmq
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+  rabbitmq-data:
+
+networks:
+  app-network:
+    driver: bridge
