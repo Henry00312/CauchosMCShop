@@ -1,11 +1,11 @@
 import { MercadoPagoConfig, Preference } from 'mercadopago';
-import { HOST, MERCADOPAGO_TOKEN, MERCADOPAGO_TOKEN_TEST } from '../config.js';
+import { HOST, MERCADOPAGO_ACCESS_TOKEN } from '../config.js';
 
 
 
 export const crearOrder = async (req) => {
-    
-    const client = new MercadoPagoConfig({ accessToken: MERCADOPAGO_TOKEN_TEST });
+
+    const client = new MercadoPagoConfig({ accessToken: MERCADOPAGO_ACCESS_TOKEN });
 
     const preference = new Preference(client);
 

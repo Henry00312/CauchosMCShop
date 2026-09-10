@@ -1,5 +1,5 @@
 import { MercadoPagoConfig, Payment} from "mercadopago"
-import { MERCADOPAGO_TOKEN } from "../config.js"
+import { MERCADOPAGO_ACCESS_TOKEN } from "../config.js"
 import {AsignarIDSolicitudes} from '../services/IDSolicitudes.js'
 import { publisher } from '../colas/publicer-Colas.js'
 import { Order, UltimaDatePedid, pickDateProg } from '../services/respuestas-solicitudes.js'
@@ -49,7 +49,7 @@ export const receiveWebhook = async (req, res) => {
     try {
         if (payment.type === "payment") {
             
-            const client = new MercadoPagoConfig({ accessToken: MERCADOPAGO_TOKEN });
+            const client = new MercadoPagoConfig({ accessToken: MERCADOPAGO_ACCESS_TOKEN });
             const capPay = new Payment(client);
             const data = await capPay.get({id: payment['data.id'] });
             
