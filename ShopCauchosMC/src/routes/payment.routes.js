@@ -6,6 +6,7 @@ import { get_PaymentsReady, get_PaymentsPending, update_PaymentReady, update_Pay
 from '../controllers/payment.controller.js'
 import {get_Costos, post_Costo, update_Costo, delete_Costo} from '../controllers/costos.controller.js'
 import { contactMessage } from '../controllers/contact.controller.js'
+import { loginRateLimiter } from '../middlewares/rateLimit.js'
 
 //import path from 'path'
 
@@ -18,7 +19,7 @@ router.post('/api/payment', createOrder);
 router.post('/api/time', Tiempo_Pedido);
 router.get('/api/pickTime', Tiempo_Pick);
 
-router.post('/api/login', logIn);
+router.post('/api/login', loginRateLimiter, logIn);
 
 //Crear Funciones
 
