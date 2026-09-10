@@ -2,16 +2,13 @@ import { MercadoPagoConfig, Payment} from "mercadopago"
 import { MERCADOPAGO_ACCESS_TOKEN } from "../config.js"
 import {AsignarIDSolicitudes} from '../services/IDSolicitudes.js'
 import { publisher } from '../colas/publicer-Colas.js'
-import { Order, UltimaDatePedid, pickDateProg } from '../services/respuestas-solicitudes.js'
+import { UltimaDatePedid, pickDateProg } from '../services/respuestas-solicitudes.js'
+import { crearOrder } from '../services/create-order.js'
 import { reclamarEvento, marcarProcesado, marcarFallido } from '../database/payments/payment-events.js'
 import logger from '../lib/logger.js'
 
-let timeOutIdOrders;
 let timeOutIdDates;
 let timeOutIdPickDates;
-function stopTimeOutOrders() {
-    clearInterval(timeOutIdOrders);
-}
 function stopTimeOutDates() {
     clearInterval(timeOutIdDates);
 }
@@ -19,23 +16,32 @@ function stopTimeOutPickDates() {
     clearInterval(timeOutIdPickDates);
 }
 
+// Crear la preferencia es una operacion peticion/respuesta: el usuario espera
+// la URL de pago. Pasaba por RabbitMQ y luego se sondeaba un array en memoria
+// cada segundo, lo que anadia latencia sin ninguna contrapartida y dejaba la
+// peticion colgada indefinidamente si la respuesta no llegaba. Ahora se llama
+// al servicio directamente.
+//
+// El contrato de respuesta no cambia: sigue siendo { url }, que es lo que el
+// consumidor de la cola devolvia antes.
 export const createOrder = async (req, res) => {
     //console.log('Origen recibido:', req.headers.origin);
-    // ID SOLICITUD
-    const ID_SOLICITUD = AsignarIDSolicitudes();
-    // AGREGAR LA ID DE LA SOLICITUD
-    const message = {contenidoRX: req.body, id_solicitud: ID_SOLICITUD};
-    //ENCOLAR
-    await publisher("Orders", message);
-    //ESPERANDO RESPUESTA
-    var result = null;
-    timeOutIdOrders = setInterval(() => {
-        result = Order(ID_SOLICITUD);
-        if (result !== null) {
-            res.send(result);
-            stopTimeOutOrders();
+    try {
+        const data = await crearOrder(req.body);
+
+        if (!data?.url) {
+            throw new Error('Mercado Pago no devolvio una URL de pago');
         }
-    }, 1000); 
+
+        res.send(data);
+    } catch (error) {
+        logger.error('Fallo al crear la preferencia de pago', error);
+
+        if (!res.headersSent) {
+            // 502: el fallo proviene del servicio externo, no de la peticion.
+            res.status(502).json({ error: 'No se pudo crear la preferencia de pago' });
+        }
+    }
 };
 
 

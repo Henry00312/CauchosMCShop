@@ -28,9 +28,10 @@ export const crearOrder = async (req) => {
             notification_url: `${HOST}/api/webhook`,
 
         }
-      })
-      .then()
-      .catch(console.log);
+      });
+    // El .catch(console.log) anterior se tragaba el fallo y dejaba idPreference
+    // sin definir, de modo que el error real se convertia en un TypeError al
+    // leer init_point. Ahora el error se propaga y lo traduce el controlador.
     //console.log(idPreference.init_point)
     //console.log(idPreference.sandbox_init_point)
     const data = {url : idPreference.init_point};
